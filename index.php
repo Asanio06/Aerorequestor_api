@@ -1,7 +1,7 @@
 <?php
 // The router
 
-require_once('controller.php');
+require_once('functions.php');
 
 if(isset($_GET['data'])){
 

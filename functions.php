@@ -14,12 +14,13 @@ function convert_xml_to_array_associative($xml_data){
 }
 
 function get_weather_data(){
-    
+
     $xml_data = get_xml_of_aviation_weather_center();
     $array_associative = convert_xml_to_array_associative($xml_data);
 
     return $array_associative;
 }
+
 
 
 
