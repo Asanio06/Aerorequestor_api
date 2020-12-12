@@ -21,7 +21,17 @@ function get_weather_data(){
     return $array_associative;
 }
 
+function get_metar_of_airport($airport_ICAO){
+    $array_associative = get_weather_data();
+    //print_r($array_associative);
 
+    foreach($array_associative['data']['METAR'] as $data){
+        if($data['station_id'] == $airport_ICAO){
+            return $data['raw_text'];
+        }
+        
+    }
+}
 
 
 

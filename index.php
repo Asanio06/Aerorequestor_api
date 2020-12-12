@@ -3,24 +3,31 @@
 
 require_once('functions.php');
 
-if(isset($_GET['data'])){
+if(isset($_GET['request'])){
 
- echo $_GET['data'];
+  if($_GET['request']=='metar_of_airport'){ // If user want metar of one airport
+
+    if(isset($_GET['airport'])){ // Verification
+
+      if($_GET['airport']){ // If we have 
+
+        $airport =  $_GET['airport'];
+        echo json_encode(get_metar_of_airport($airport));
+
+      }
+    }
+
+  }elseif($_GET['request']=='Windiest airport'){ // get Windiest airport
+    
+
+  }
+
 
 }else{
 
+  echo json_encode(get_metar_of_airport('LFMN'));
   
-  
-  //print_r($array_associative['data']['METAR'][0]) ;
-  $array_associative = get_weather_data();
-  print_r($array_associative);
-
-  /*foreach($array_associative['data']['METAR'] as $data){
-    if($data['station_id'] == 'LFMN'){
-      echo $data['raw_text'];
-    }
-    
-  }*/
+  //http_response_code()
 
 }
 
