@@ -52,6 +52,41 @@ function get_windiest_airport(){
     return get_metar_of_airport($ICAO_of_max);
 }
 
+function get_name_of_all_airport(){
+    $name_of_airport = get_indent_and_name_of_airport();
+    return $name_of_airport;
+    
+}
+
+function generate_datalist_name_of_airport(){
+    $airport_list = get_name_of_all_airport();
+    ob_start();
+?>
+
+<datalist id="list_airport">
+            
+
+
+
+<?php
+    foreach($airport_list as $airport){
+
+
+?>
+<option value=<?=$airport['ident']?>> <?=$airport['name']?></option>
+
+<?php
+
+    }
+?>
+</datalist>
+
+<?php
+$content = ob_get_clean();
+return $content;
+}
+// END OF FUNCTION generate_datalist_name_of_airport
+
 
 
 ?>

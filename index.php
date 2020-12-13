@@ -21,12 +21,15 @@ if(isset($_GET['request'])){
 
     echo json_encode(get_windiest_airport());
 
+  }elseif($_GET['request']=='airport_list'){ // get Windiest airport
+
+    echo generate_datalist_name_of_airport();
+
   }
 
 
 }else{
 
-  echo json_encode(get_metar_of_airport('LFMN'));
   
   //http_response_code()
 
