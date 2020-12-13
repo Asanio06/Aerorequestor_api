@@ -73,7 +73,7 @@ function generate_datalist_name_of_airport(){
 
 
 ?>
-<option value=<?=$airport['ident']?>> <?=$airport['name']?></option>
+<option value=<?=$airport['ident']?>> <?= $airport['name']?></option>
 
 <?php
 
