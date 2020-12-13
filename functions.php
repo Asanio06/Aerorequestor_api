@@ -1,5 +1,6 @@
 <?php
 // Here my fonction
+require_once('BDD_data.php');
 
 function get_xml_of_aviation_weather_center(){
     $lines = file_get_contents('https://www.aviationweather.gov/adds/dataserver_current/current/metars.cache.xml');
@@ -23,7 +24,6 @@ function get_weather_data(){
 
 function get_metar_of_airport($airport_ICAO){
     $array_associative = get_weather_data();
-    //print_r($array_associative);
 
     foreach($array_associative['data']['METAR'] as $data){
         if($data['station_id'] == $airport_ICAO){
@@ -31,6 +31,25 @@ function get_metar_of_airport($airport_ICAO){
         }
         
     }
+}
+
+function get_windiest_airport(){
+    $array_associative = get_weather_data();
+    $maximum = 0 ;
+    $ICAO_of_max ='';
+
+    foreach($array_associative['data']['METAR'] as $data){
+        if(isset($data['wind_speed_kt'])){
+            $wind_speed= $data['wind_speed_kt'];
+            if($wind_speed>$maximum){
+                $maximum = $wind_speed;
+                $ICAO_of_max = $data['station_id'];
+            }
+        }
+        
+
+    }
+    return get_metar_of_airport($ICAO_of_max);
 }
 
 

@@ -17,8 +17,9 @@ if(isset($_GET['request'])){
       }
     }
 
-  }elseif($_GET['request']=='Windiest airport'){ // get Windiest airport
-    
+  }elseif($_GET['request']=='Windiest_airport'){ // get Windiest airport
+
+    echo json_encode(get_windiest_airport());
 
   }
 
