@@ -37,9 +37,9 @@ function get_windiest_airport(){
     $array_associative = get_weather_data();
     $maximum = 0 ;
     $ICAO_of_max ='';
-
     foreach($array_associative['data']['METAR'] as $data){
-        if(isset($data['wind_speed_kt'])){
+
+        if(isset($data['wind_speed_kt'])   ){
             $wind_speed= $data['wind_speed_kt'];
             if($wind_speed>$maximum){
                 $maximum = $wind_speed;
@@ -49,7 +49,10 @@ function get_windiest_airport(){
         
 
     }
-    return get_metar_of_airport($ICAO_of_max);
+    $metar = get_metar_of_airport($ICAO_of_max); 
+    $airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
+    $windiest_airport = array("name_of_airport"=>$airport_name,"metar"=>$metar);
+    return $windiest_airport;
 }
 
 function get_name_of_all_airport(){

@@ -15,9 +15,18 @@ function get_bdd(){
 
 function get_indent_and_name_of_airport(){
     $bdd = get_bdd();
-    $req =$bdd->prepare('SELECT ident,name FROM `Airport`');
+    $req =$bdd->prepare('SELECT ident,name FROM `Airport` ');
     $req->execute();
     return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+function get_name_of_airport_with_ICAO($ICAO_airport){
+    $bdd = get_bdd();
+    $req =$bdd->prepare('SELECT name,type FROM `Airport` WHERE ident =:ICAO_airport');
+    $req->bindParam(':ICAO_airport',$ICAO_airport,PDO::PARAM_STR);
+    $req->execute();
+    return $req->fetch();
 
 }
 
