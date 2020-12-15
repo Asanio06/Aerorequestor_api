@@ -50,8 +50,8 @@ function get_windiest_airport(){
 
     }
     $metar = get_metar_of_airport($ICAO_of_max); 
-    $airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
-    $windiest_airport = array("name_of_airport"=>$airport_name,"metar"=>$metar);
+    //$airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
+    $windiest_airport = array("name_of_airport"=>'no_for_moment',"metar"=>$metar);
     return $windiest_airport;
 }
 
