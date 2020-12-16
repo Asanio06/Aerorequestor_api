@@ -27,7 +27,17 @@ function get_metar_of_airport($airport_ICAO){
 
     foreach($array_associative['data']['METAR'] as $data){
         if($data['station_id'] == $airport_ICAO){
-            return $data['raw_text'];
+
+            if($data["flight_category"] == 'VFR'){
+                $advise = "You can do all type of flight" ;
+
+            }else if($data["flight_category"] == 'MVFR'){
+                $advise = "You can do special vfr and IFR";
+            }else{
+                $advise = "You can also do IFR flight";
+            }
+
+            return array("metar"=>$data['raw_text'],"advise"=>$advise) ;
         }
         
     }
