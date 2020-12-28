@@ -30,4 +30,15 @@ function get_name_of_airport_with_ICAO($ICAO_airport){
 
 }
 
+function get_list_of_open_airport(){
+    // I want to know if is airport , heliport or other
+    $bdd = get_bdd();
+    $req =$bdd->prepare('SELECT  ident,name FROM `Airport` WHERE type LIKE \'%airport%\'');
+    $req->execute();
+
+    return $req;
+    
+}
+
+
 ?>

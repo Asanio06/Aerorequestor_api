@@ -26,16 +26,23 @@ function get_metar_of_airport($airport_ICAO){
     $array_associative = get_weather_data();
 
     foreach($array_associative['data']['METAR'] as $data){
+
         if($data['station_id'] == $airport_ICAO){
+            if($data['flight_category']){
 
-            if($data["flight_category"] == 'VFR'){
-                $advise = "You can do all type of flight" ;
+                if($data["flight_category"] == 'VFR'){
+                    $advise = "You can do all type of flight" ;
+    
+                }else if($data["flight_category"] == 'MVFR'){
+                    $advise = "You can do special vfr and IFR";
+                }else{
+                    $advise = "You can also do IFR flight";
+                }
 
-            }else if($data["flight_category"] == 'MVFR'){
-                $advise = "You can do special vfr and IFR";
             }else{
-                $advise = "You can also do IFR flight";
+                $advise = 'No advise for this airport';
             }
+            
 
             return array("metar"=>$data['raw_text'],"advise"=>$advise) ;
         }
@@ -47,23 +54,28 @@ function get_windiest_airport(){
     $array_associative = get_weather_data();
     $maximum = 0 ;
     $ICAO_of_max ='';
+    $list_of_open_airport = array_column(get_list_of_open_airport()->fetchAll(PDO::FETCH_ASSOC) ,'ident');
     foreach($array_associative['data']['METAR'] as $data){
 
-        if(isset($data['wind_speed_kt'])   ){
-            $wind_speed= $data['wind_speed_kt'];
-            if($wind_speed>$maximum){
-                $maximum = $wind_speed;
-                $ICAO_of_max = $data['station_id'];
+        if(in_array($data['station_id'],$list_of_open_airport)){
+
+            if(isset($data['wind_speed_kt'])   ){
+                $wind_speed= $data['wind_speed_kt'];
+                if($wind_speed>$maximum){
+                    $maximum = $wind_speed;
+                    $ICAO_of_max = $data['station_id'];
+                }
             }
         }
-        
 
     }
-    $metar = get_metar_of_airport($ICAO_of_max); 
-    //$airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
-    $windiest_airport = array("name_of_airport"=>'no_for_moment',"metar"=>$metar);
+    $metar = get_metar_of_airport($ICAO_of_max)['metar']; 
+    $airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
+    $windiest_airport = array("name_of_airport"=>$airport_name,"metar"=>$metar);
     return $windiest_airport;
 }
+
+
 
 function get_name_of_all_airport(){
     $name_of_airport = get_indent_and_name_of_airport();
