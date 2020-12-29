@@ -32,7 +32,7 @@ if(isset($_GET['request'])){
       if($_GET['airport']){ // If we have 
 
         $airport =  $_GET['airport'];
-        echo json_encode(generate_datalist_ifr_charts_of_airport($airport));
+        echo generate_datalist_ifr_charts_of_airport($airport);
 
       }
     }
