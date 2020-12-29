@@ -22,6 +22,8 @@ function get_weather_data(){
     return $array_associative;
 }
 
+
+
 function get_metar_of_airport($airport_ICAO){
     $array_associative = get_weather_data();
 
@@ -88,31 +90,61 @@ function generate_datalist_name_of_airport(){
     ob_start();
 ?>
 
-<datalist id="list_airport">
-            
+    <datalist id="list_airport">
+                
+    <?php
+        foreach($airport_list as $airport){
 
 
+    ?>
+            <option value=<?=$airport['ident']?>> <?= $airport['name']?></option>
 
-<?php
-    foreach($airport_list as $airport){
+    <?php
 
+        }
+    ?>
 
-?>
-<option value=<?=$airport['ident']?>> <?= $airport['name']?></option>
-
-<?php
-
-    }
-?>
-</datalist>
+    </datalist>
 
 <?php
-$content = ob_get_clean();
-return $content;
+    $content = ob_get_clean();
+    return $content;
 }
 // END OF FUNCTION generate_datalist_name_of_airport
 
+function generate_datalist_ifr_charts_of_airport($ICAO_airport){
+
+    $charts_list = get_list_of_ifr_chart_of_airport($ICAO_airport)->fetchAll(PDO::FETCH_ASSOC);
+    ob_start();
+?>
+
+    <datalist id="list_ifr_chart">
+                
+        <?php
+            foreach($charts_list as $chart){
+
+
+        ?>
+                <option > <?= $chart['Chart_name'] ?></option>
+
+        <?php
+
+            }
+        ?>
+
+    </datalist>
+
+<?php
+    $content = ob_get_clean();
+    return $content;
+}
+// END OF FUNCTION 
+
 
 
 ?>
+
+
+
+
 
