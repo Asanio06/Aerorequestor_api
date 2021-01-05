@@ -37,12 +37,24 @@ if(isset($_GET['request'])){
       }
     }
 
-  }
+  }elseif($_GET['request']=='get_url_of_chart'){ // 
 
+    if(isset($_GET['charts'])){ // 
+
+      if($_GET['charts']){ // 
+
+        $name_of_charts =  rawurldecode($_GET['charts']) ;
+        echo  json_encode(get_url_of_charts($name_of_charts)) ;
+
+      }
+    }
+
+  }
 
 }else{
 
-  echo generate_datalist_ifr_charts_of_airport('LFKJ');
+  get_url_of_charts('AD 2 LFPO AMSR 01');
+
   
   //http_response_code();
 

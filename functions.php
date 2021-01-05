@@ -85,6 +85,19 @@ function get_name_of_all_airport(){
     
 }
 
+function get_url_of_charts($name_of_charts){
+
+    $information_of_chart = get_information_about_chart($name_of_charts)->fetch();
+
+    if($information_of_chart['Countrie_code'] == 'FR'){
+        $url_of_charts = 'https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_'. $information_of_chart['Info1']  . '/' . 'FRANCE' .'/'. 
+        $information_of_chart['Info2']  .'/html/eAIP/Cartes/'. $information_of_chart['ICAO_AIRPORT'].'/'. rawurlencode($name_of_charts)  . '.pdf' ;
+    }
+
+    return $url_of_charts ;
+    
+}
+
 function generate_datalist_name_of_airport(){
     $airport_list = get_name_of_all_airport();
     ob_start();

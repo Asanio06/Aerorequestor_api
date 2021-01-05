@@ -49,5 +49,18 @@ function get_list_of_open_airport(){
     
 }
 
+function get_information_about_chart($chart_name){
+    
+    $bdd = get_bdd();
+    $req =$bdd->prepare('SELECT Chart_of_airport.ICAO_AIRPORT , Chart_of_airport.Chart_name , information_of_airac.* 
+    FROM `Chart_of_airport`, Airport , information_of_airac WHERE information_of_airac.Countrie_code = Airport.iso_country AND 
+    Airport.ident = Chart_of_airport.ICAO_AIRPORT AND Chart_of_airport.Chart_name = :Chart_name
+    AND NOW() BETWEEN information_of_airac.Date_begin AND information_of_airac.Date_end');
+    $req->bindParam(':Chart_name',$chart_name,PDO::PARAM_STR);
+    $req->execute();
+
+    return $req;
+}
+
 
 ?>
