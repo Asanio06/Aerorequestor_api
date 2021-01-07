@@ -21,7 +21,7 @@ if(isset($_GET['request'])){
 
     echo json_encode(get_windiest_airport());
 
-  }elseif($_GET['request']=='airport_list'){ // get Windiest airport
+  }elseif($_GET['request']=='airport_list'){ 
 
     echo generate_datalist_name_of_airport();
 

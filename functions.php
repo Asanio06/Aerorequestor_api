@@ -92,6 +92,8 @@ function get_url_of_charts($name_of_charts){
     if($information_of_chart['Countrie_code'] == 'FR'){
         $url_of_charts = 'https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_'. $information_of_chart['Info1']  . '/' . 'FRANCE' .'/'. 
         $information_of_chart['Info2']  .'/html/eAIP/Cartes/'. $information_of_chart['ICAO_AIRPORT'].'/'. rawurlencode($name_of_charts)  . '.pdf' ;
+    }else{
+        return false ;
     }
 
     return $url_of_charts ;
@@ -100,6 +102,7 @@ function get_url_of_charts($name_of_charts){
 
 function generate_datalist_name_of_airport(){
     $airport_list = get_name_of_all_airport();
+    
     ob_start();
 ?>
 
@@ -128,6 +131,11 @@ function generate_datalist_name_of_airport(){
 function generate_datalist_ifr_charts_of_airport($ICAO_airport){
 
     $charts_list = get_list_of_ifr_chart_of_airport($ICAO_airport)->fetchAll(PDO::FETCH_ASSOC);
+    if(!$charts_list){
+        header('HTTP/1.1 204 No Content');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'ERROR', 'code' => 204)));
+    }
     ob_start();
 ?>
 
