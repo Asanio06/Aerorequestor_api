@@ -62,5 +62,13 @@ function get_information_about_chart($chart_name){
     return $req;
 }
 
+function get_name_of_countries_with_ICAO($ICAO_airport){
+    $bdd = get_bdd();
+    $req =$bdd->prepare('SELECT Countries.name FROM Airport, Countries WHERE Countries.code = Airport.iso_country AND Airport.ident = :ICAO_airport');
+    $req->bindParam(':ICAO_airport',$ICAO_airport,PDO::PARAM_STR);
+    $req->execute();
+    return $req;
+}
+
 
 ?>

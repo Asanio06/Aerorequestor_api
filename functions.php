@@ -73,7 +73,8 @@ function get_windiest_airport(){
     }
     $metar = get_metar_of_airport($ICAO_of_max)['metar']; 
     $airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
-    $windiest_airport = array("name_of_airport"=>$airport_name,"metar"=>$metar);
+    $countrie_name = get_name_of_countries_with_ICAO($ICAO_of_max)->fetch()['name'];
+    $windiest_airport = array("name_of_airport"=>$airport_name,"name_of_countrie"=>$countrie_name,"metar"=>$metar);
     return $windiest_airport;
 }
 
@@ -99,6 +100,21 @@ function get_url_of_charts($name_of_charts){
     return $url_of_charts ;
     
 }
+/*
+function get_url_of_vfr_chart($airport){
+
+    
+
+    if($information_of_chart['Countrie_code'] == 'FR'){
+        $url_of_charts = 'https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_'. $information_of_chart['Info1']  . '/' . 'FRANCE' .'/'. 
+        $information_of_chart['Info2']  .'/html/eAIP/Cartes/'. $information_of_chart['ICAO_AIRPORT'].'/'. rawurlencode($name_of_charts)  . '.pdf' ;
+    }else{
+        return false ;
+    }
+
+    return $url_of_charts ;
+    
+}*/
 
 function generate_datalist_name_of_airport(){
     $airport_list = get_name_of_all_airport();
