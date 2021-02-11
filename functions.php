@@ -74,7 +74,7 @@ function get_windiest_airport(){
 
     $metar = get_metar_of_airport($ICAO_of_max)['metar']; 
     if (!$metar){
-        $metar = "Oups il y'a un problème au niveau du metar"
+        $metar = "Oups il y'a un problème au niveau du metar";
     }
     $airport_name = get_name_of_airport_with_ICAO($ICAO_of_max)['name'];
     $countrie_name = get_name_of_countries_with_ICAO($ICAO_of_max)->fetch()['name'];
